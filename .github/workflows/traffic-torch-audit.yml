@@ -8,14 +8,14 @@ on:
         required: false
         default: 'https://traffictorch.net'
       html_path:
-        description: 'Path to built HTML file (optional)'
+        description: 'Path to built HTML file (e.g. dist/index.html) — optional'
         required: false
       tools:
         description: 'Modules (comma-separated or "all")'
         required: false
         default: 'all'
       open_in_browser:
-        description: 'Open in new browser tab for full experience (rate limits + upgrade prompts)'
+        description: 'Open full experience in browser (recommended)'
         required: false
         default: 'true'
 
@@ -25,6 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # ← THIS IS THE MISSING STEP
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
       - name: Run Traffic Torch Audit
         uses: ./
         with:
@@ -32,10 +38,8 @@ jobs:
           html_path: ${{ inputs.html_path }}
           tools: ${{ inputs.tools }}
           open_in_browser: ${{ inputs.open_in_browser }}
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-      - name: Upload Report (if generated)
+      - name: Upload Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
