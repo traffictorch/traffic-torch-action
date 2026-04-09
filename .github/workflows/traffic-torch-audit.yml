@@ -21,10 +21,11 @@ on:
           - keyword-research-tool
           - keyword-vs-tool
       url:
-        description: 'Live URL to audit (leave empty when testing HTML file)'
+        description: 'Live URL to audit (leave empty when using HTML file)'
         required: false
+        default: 'https://traffictorch.net'
       html_path:
-        description: 'Path to HTML file (default test page is provided)'
+        description: 'Path to HTML file (default test page provided)'
         required: false
         default: 'test-pages/test-page.html'
       open_in_browser:
