@@ -1,0 +1,40 @@
+name: Traffic Torch 360° SEO + UX + Design + AEO + GEO Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL to audit (your deployed Traffic Torch site or any live URL)'
+        required: true
+        default: 'https://your-traffic-torch-site.pages.dev'   # ← CHANGE THIS to your real Cloudflare Pages URL
+      threshold:
+        description: 'Minimum health score to pass (0-100)'
+        required: false
+        default: '85'
+      tools:
+        description: 'Modules to run (comma-separated: seo,ux,design,aeo,geo or "all")'
+        required: false
+        default: 'all'
+      competitors:
+        description: 'Optional comma-separated competitor URLs for gap analysis'
+        required: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Traffic Torch Audit
+        uses: ./
+        with:
+          url: ${{ inputs.url }}
+          threshold: ${{ inputs.threshold }}
+          tools: ${{ inputs.tools }}
+          competitors: ${{ inputs.competitors }}
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: traffic-torch-report
+          path: traffic-torch-report.html
