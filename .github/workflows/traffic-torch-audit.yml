@@ -21,15 +21,15 @@ on:
           - keyword-research-tool
           - keyword-vs-tool
       url:
-        description: 'Live URL to audit (leave empty when using HTML file)'
+        description: 'Live URL to audit'
         required: false
         default: 'https://traffictorch.net'
       html_path:
-        description: 'Path to HTML file (default test page provided)'
+        description: 'Path to HTML file'
         required: false
         default: 'test-pages/test-page.html'
       open_in_browser:
-        description: 'Open full interactive Traffic Torch page in browser'
+        description: 'Open in browser'
         type: boolean
         required: false
         default: true
@@ -40,24 +40,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: 'npm'
-
-      - name: Install dependencies & build action
-        run: |
-          npm ci --ignore-scripts
-          npm run build
-        working-directory: .
-
       - name: Run Traffic Torch Audit
         uses: ./
         with:
           url: ${{ inputs.url }}
           html_path: ${{ inputs.html_path }}
-          tools: ${{ inputs.tool }}
+          tool: ${{ inputs.tool }}
           open_in_browser: ${{ inputs.open_in_browser }}
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
