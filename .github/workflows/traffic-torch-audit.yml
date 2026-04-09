@@ -21,14 +21,14 @@ on:
           - keyword-research-tool
           - keyword-vs-tool
       url:
-        description: 'Live URL to audit (leave empty if using HTML file below)'
+        description: 'Live URL to audit (leave empty when testing HTML file)'
         required: false
-        default: 'https://traffictorch.net'
       html_path:
-        description: 'Path to built HTML file in YOUR repo (e.g. dist/index.html)'
+        description: 'Path to HTML file (default test page is provided)'
         required: false
+        default: 'test-pages/test-page.html'
       open_in_browser:
-        description: 'Open full Traffic Torch page in browser (shows rate limits + upgrade prompts)'
+        description: 'Open full interactive Traffic Torch page in browser'
         type: boolean
         required: false
         default: true
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies & build the action
+      - name: Install dependencies & build action
         run: |
           npm ci
           npm run build
@@ -53,10 +53,3 @@ jobs:
           open_in_browser: ${{ inputs.open_in_browser }}
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
-      - name: Upload Report (if any)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: traffic-torch-report
-          path: traffic-torch-report.html
