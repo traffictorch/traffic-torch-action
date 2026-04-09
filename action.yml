@@ -1,20 +1,20 @@
 name: 'Traffic Torch Audit'
-description: 'Instant 360° SEO + UX + Design + AEO + GEO audit. Generates link to full Traffic Torch experience (rate limits, upgrade prompts, day/night mode with text-gray-800 / dark:text-gray-200).'
+description: 'Opens full Traffic Torch experience in browser'
 inputs:
   url:
-    description: 'Live URL to audit'
+    description: 'Live URL'
     required: false
     default: 'https://traffictorch.net'
   html_path:
-    description: 'Path to HTML file (e.g. test-pages/test-page.html)'
+    description: 'HTML file path'
     required: false
     default: 'test-pages/test-page.html'
   tool:
-    description: 'Tool to run'
+    description: 'Tool'
     required: false
     default: 'ai-audit-tool'
   open_in_browser:
-    description: 'Open full page in browser'
+    description: 'Open in browser'
     required: false
     default: 'true'
 runs:
@@ -26,24 +26,20 @@ runs:
         echo "🚀 Traffic Torch Audit started"
         echo "Tool: ${{ inputs.tool }}"
         echo "HTML path: ${{ inputs.html_path }}"
-        
-        if [ -n "$$   {{ inputs.html_path }}" ] && [ -f "   $${{ inputs.html_path }}" ]; then
-          echo "📄 Using HTML file: ${{ inputs.html_path }}"
-          HTML_CONTENT=$$   (cat "   $${{ inputs.html_path }}" | base64)
-          LINK="https://traffictorch.net/$$   {{ inputs.tool }}/?html=   $${HTML_CONTENT}&tools=${{ inputs.tool }}"
+
+        if [ -n "${{ inputs.html_path }}" ] && [ -f "${{ inputs.html_path }}" ]; then
+          echo "Using HTML file"
+          ENCODED_HTML=$(base64 -w0 < "${{ inputs.html_path }}")
+          LINK="https://traffictorch.net/${{ inputs.tool }}/?html=${ENCODED_HTML}"
         else
-          echo "🌐 Using URL: ${{ inputs.url }}"
-          ENCODED_URL=$$   (echo -n "   $${{ inputs.url }}" | jq -sRr @uri)
-          LINK="https://traffictorch.net/$$   {{ inputs.tool }}/?url=   $${ENCODED_URL}&tools=${{ inputs.tool }}"
+          echo "Using URL mode"
+          ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
+          LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED_URL}"
         fi
-        
+
         echo "🔗 Full audit link:"
         echo "$LINK"
-        
-        if [ "${{ inputs.open_in_browser }}" = "true" ]; then
-          echo "🌐 Click the link above to open full Traffic Torch experience in new tab"
-        fi
-        
+
         echo "## Traffic Torch Audit" >> $GITHUB_STEP_SUMMARY
         echo "**Tool:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
         echo "**Link:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
