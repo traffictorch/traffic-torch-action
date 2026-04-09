@@ -6,17 +6,17 @@ on:
       url:
         description: 'URL to audit (your deployed Traffic Torch site or any live URL)'
         required: true
-        default: 'https://your-traffic-torch-site.pages.dev'   # ← CHANGE THIS to your real Cloudflare Pages URL
+        default: 'https://traffictorch.net'
       threshold:
         description: 'Minimum health score to pass (0-100)'
         required: false
         default: '85'
       tools:
-        description: 'Modules to run (comma-separated: seo,ux,design,aeo,geo or "all")'
+        description: 'Modules to run (comma-separated: seo,ux,design,aeo,geo,entity,intent,local,product,schema,voice,quitrisk,keyword or "all")'
         required: false
         default: 'all'
       competitors:
-        description: 'Optional comma-separated competitor URLs for gap analysis'
+        description: 'Optional comma-separated competitor URLs'
         required: false
 
 jobs:
@@ -32,6 +32,8 @@ jobs:
           threshold: ${{ inputs.threshold }}
           tools: ${{ inputs.tools }}
           competitors: ${{ inputs.competitors }}
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # forces latest Node for 2026
 
       - name: Upload Report
         uses: actions/upload-artifact@v4

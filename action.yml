@@ -1,27 +1,27 @@
 name: 'Traffic Torch Audit'
-description: 'Instant 360° SEO + UX health score with selectable deep-dive modules, implementation gaps, priority fixes, predictive forecasting & educational reports. Built for Traffic Torch website logic.'
+description: 'Instant 360° SEO + UX + Design + AEO + GEO health score with selectable deep-dive modules, competitive gaps, AI fixes & educational reports (uses your live traffictorch.net tools)'
 inputs:
   url:
-    description: 'URL to audit (your deployed site or any live URL)'
+    description: 'URL to audit'
     required: true
   threshold:
-    description: 'Minimum overall health score (0-100) to pass the check'
+    description: 'Minimum overall health score (0-100)'
     required: false
     default: '85'
   tools:
-    description: 'Comma-separated tools/modules to run (e.g. seo,ux,cwv,competitive,aifixes,forecasting or "all")'
+    description: 'Comma-separated modules (seo,ux,design,aeo,geo,entity,intent,local,product,schema,voice,quitrisk,keyword or "all")'
     required: false
     default: 'all'
   competitors:
-    description: 'Optional comma-separated competitor URLs for gap analysis'
+    description: 'Optional comma-separated competitor URLs'
     required: false
 outputs:
   health-score:
-    description: 'Overall Traffic Torch health score (0-100)'
+    description: 'Overall Traffic Torch health score'
   report-html:
-    description: 'Path to the generated branded HTML report'
+    description: 'Path to generated branded HTML report'
   findings:
-    description: 'JSON of issues + AI fixes'
+    description: 'JSON array of issues + AI fixes'
 runs:
-  using: 'node20'
+  using: 'node24'   # ← updated for 2026 (Node 20 is deprecated)
   main: 'dist/index.js'
