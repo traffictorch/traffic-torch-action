@@ -9,9 +9,12 @@ export default tseslint.config(
   {
     files: ['**/*.ts'],
     rules: {
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['warn', { 
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_' 
+      }],
       '@typescript-eslint/no-explicit-any': 'warn',
-      'no-console': 'off'   // allowed in GitHub Actions for core.info()
+      'no-console': 'off'
     }
   }
 );

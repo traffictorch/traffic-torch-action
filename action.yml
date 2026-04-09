@@ -1,30 +1,30 @@
 name: 'Traffic Torch Audit'
-description: 'Instant 360° SEO + UX + Design + AEO + GEO audit. Supports URL or raw HTML input + selectable modules. Uses your live traffictorch.net tools.'
+description: 'Instant 360° SEO + UX + Design + AEO + GEO audit. Opens full Traffic Torch experience in a new browser tab (shows rate limits, upgrade prompts, AI fixes, day/night mode with text-gray-800 / dark:text-gray-200).'
 inputs:
   url:
-    description: 'URL to audit (optional if html is provided)'
+    description: 'Live URL to audit'
     required: false
-  html:
-    description: 'Raw HTML code to audit (optional if url is provided)'
+    default: 'https://traffictorch.net'
+  html_path:
+    description: 'Path to built HTML file (e.g. dist/index.html) — action reads it automatically'
     required: false
   threshold:
-    description: 'Minimum overall health score (0-100)'
+    description: 'Minimum health score (0-100)'
     required: false
     default: '85'
   tools:
-    description: 'Comma-separated modules (seo,ux,design,aeo,geo,entity,intent,local,product,schema,voice,quitrisk,keyword or "all")'
+    description: 'Modules to run (comma-separated or "all")'
     required: false
     default: 'all'
-  competitors:
-    description: 'Optional comma-separated competitor URLs'
+  open_in_browser:
+    description: 'Open full interactive Traffic Torch page in browser (recommended for full experience)'
     required: false
+    default: 'true'
 outputs:
+  report-link:
+    description: 'Direct link to the full audit in Traffic Torch'
   health-score:
-    description: 'Overall Traffic Torch health score'
-  report-html:
-    description: 'Path to generated branded HTML report'
-  findings:
-    description: 'JSON array of issues + AI fixes'
+    description: 'Overall health score (if available)'
 runs:
   using: 'node24'
   main: 'dist/index.js'

@@ -4,23 +4,20 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: 'URL to audit (leave empty if providing HTML)'
+        description: 'Live URL to audit'
         required: false
         default: 'https://traffictorch.net'
-      html:
-        description: 'Raw HTML to audit (paste full page HTML here - optional)'
+      html_path:
+        description: 'Path to built HTML file (optional)'
         required: false
-      threshold:
-        description: 'Minimum health score to pass (0-100)'
-        required: false
-        default: '85'
       tools:
-        description: 'Modules to run (comma-separated or "all")'
+        description: 'Modules (comma-separated or "all")'
         required: false
         default: 'all'
-      competitors:
-        description: 'Optional comma-separated competitor URLs'
+      open_in_browser:
+        description: 'Open in new browser tab for full experience (rate limits + upgrade prompts)'
         required: false
+        default: 'true'
 
 jobs:
   audit:
@@ -32,14 +29,14 @@ jobs:
         uses: ./
         with:
           url: ${{ inputs.url }}
-          html: ${{ inputs.html }}
-          threshold: ${{ inputs.threshold }}
+          html_path: ${{ inputs.html_path }}
           tools: ${{ inputs.tools }}
-          competitors: ${{ inputs.competitors }}
+          open_in_browser: ${{ inputs.open_in_browser }}
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-      - name: Upload Report
+      - name: Upload Report (if generated)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: traffic-torch-report
