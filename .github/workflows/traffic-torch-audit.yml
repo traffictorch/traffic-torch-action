@@ -4,15 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: 'URL to audit (your deployed Traffic Torch site or any live URL)'
-        required: true
+        description: 'URL to audit (leave empty if providing HTML)'
+        required: false
         default: 'https://traffictorch.net'
+      html:
+        description: 'Raw HTML to audit (paste full page HTML here - optional)'
+        required: false
       threshold:
         description: 'Minimum health score to pass (0-100)'
         required: false
         default: '85'
       tools:
-        description: 'Modules to run (comma-separated: seo,ux,design,aeo,geo,entity,intent,local,product,schema,voice,quitrisk,keyword or "all")'
+        description: 'Modules to run (comma-separated or "all")'
         required: false
         default: 'all'
       competitors:
@@ -29,11 +32,12 @@ jobs:
         uses: ./
         with:
           url: ${{ inputs.url }}
+          html: ${{ inputs.html }}
           threshold: ${{ inputs.threshold }}
           tools: ${{ inputs.tools }}
           competitors: ${{ inputs.competitors }}
         env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # forces latest Node for 2026
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Upload Report
         uses: actions/upload-artifact@v4

@@ -1,9 +1,12 @@
 name: 'Traffic Torch Audit'
-description: 'Instant 360° SEO + UX + Design + AEO + GEO health score with selectable deep-dive modules, competitive gaps, AI fixes & educational reports (uses your live traffictorch.net tools)'
+description: 'Instant 360° SEO + UX + Design + AEO + GEO audit. Supports URL or raw HTML input + selectable modules. Uses your live traffictorch.net tools.'
 inputs:
   url:
-    description: 'URL to audit'
-    required: true
+    description: 'URL to audit (optional if html is provided)'
+    required: false
+  html:
+    description: 'Raw HTML code to audit (optional if url is provided)'
+    required: false
   threshold:
     description: 'Minimum overall health score (0-100)'
     required: false
@@ -23,5 +26,5 @@ outputs:
   findings:
     description: 'JSON array of issues + AI fixes'
 runs:
-  using: 'node24'   # ← updated for 2026 (Node 20 is deprecated)
+  using: 'node24'
   main: 'dist/index.js'
