@@ -3,21 +3,35 @@ name: Traffic Torch 360° SEO + UX + Design + AEO + GEO Audit
 on:
   workflow_dispatch:
     inputs:
+      tool:
+        description: 'Which Traffic Torch tool to run'
+        type: choice
+        required: true
+        default: 'ai-audit-tool'
+        options:
+          - ai-audit-tool
+          - topical-authority-audit-tool
+          - seo-entity-extractor-tool
+          - seo-intent-tool
+          - local-seo-tool
+          - product-seo-tool
+          - schema-generator
+          - ai-search-optimization-tool
+          - ai-voice-search-tool
+          - keyword-research-tool
+          - keyword-vs-tool
       url:
-        description: 'Live URL to audit'
+        description: 'Live URL to audit (optional if using HTML file)'
         required: false
         default: 'https://traffictorch.net'
       html_path:
-        description: 'Path to built HTML file (e.g. dist/index.html) — optional'
+        description: 'Path to built HTML file in your repo (e.g. dist/index.html or public/index.html)'
         required: false
-      tools:
-        description: 'Modules (comma-separated or "all")'
-        required: false
-        default: 'all'
       open_in_browser:
-        description: 'Open full experience in browser (recommended)'
+        description: 'Open full interactive page in browser (shows rate limits + upgrade prompts)'
+        type: boolean
         required: false
-        default: 'true'
+        default: true
 
 jobs:
   audit:
@@ -25,8 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ← THIS IS THE MISSING STEP
-      - name: Install dependencies and build
+      - name: Install & build action
         run: |
           npm ci
           npm run build
@@ -36,8 +49,10 @@ jobs:
         with:
           url: ${{ inputs.url }}
           html_path: ${{ inputs.html_path }}
-          tools: ${{ inputs.tools }}
+          tools: ${{ inputs.tool }}
           open_in_browser: ${{ inputs.open_in_browser }}
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Upload Report
         if: always()
