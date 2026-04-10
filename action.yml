@@ -15,9 +15,9 @@ runs:
     - name: Run Traffic Torch Audit
       shell: bash
       run: |
-        echo "🚥 Traffic Torch Audit started for ${{ inputs.url }}"
+        echo "🚀 Traffic Torch Audit started for ${{ inputs.url }}"
         
-        # Map nice name to actual path
+        # Map emoji name to real tool path
         case "${{ inputs.tool }}" in
           "⚜️ Topical Authority Audit") TOOL_PATH="topical-authority-audit-tool" ;;
           "🧬 SEO Entity Extractor") TOOL_PATH="seo-entity-extractor-tool" ;;
@@ -45,4 +45,4 @@ runs:
         echo "## Traffic Torch Audit" >> $GITHUB_STEP_SUMMARY
         echo "**URL:** ${{ inputs.url }}" >> $GITHUB_STEP_SUMMARY
         echo "**Tool:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
-        echo "**Link:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
+        echo "**Link:** [$LINK]($LINK){target=\"_blank\"}" >> $GITHUB_STEP_SUMMARY

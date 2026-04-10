@@ -1,4 +1,4 @@
-name: 🚥 Traffic Torch SEO + UX + GEO Audit
+name: 🚥 Traffic Torch SEO GEO UX Audit Toolkit
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       url:
         description: 'URL to audit'
         required: true
-        default: 'https://traffictorch.net'
+        default: 'traffictorch.net'
       tool:
         description: 'Which Traffic Torch tool to run'
         type: choice
