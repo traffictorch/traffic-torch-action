@@ -1,22 +1,18 @@
 name: 'Traffic Torch Audit'
-description: 'Opens full Traffic Torch experience in browser with pre-filled HTML or URL'
+description: 'Opens Traffic Torch with pre-filled HTML or URL for full interactive experience'
 inputs:
   url:
     description: 'Live URL to audit'
     required: false
     default: 'https://traffictorch.net'
   html_path:
-    description: 'Path to HTML file'
+    description: 'Path to HTML file in repo'
     required: false
     default: 'test-pages/test-page.html'
   tool:
     description: 'Tool to run'
     required: false
     default: 'ai-audit-tool'
-  open_in_browser:
-    description: 'Open in browser'
-    required: false
-    default: 'true'
 runs:
   using: 'composite'
   steps:
@@ -25,20 +21,25 @@ runs:
       run: |
         echo "🚀 Traffic Torch Audit started"
         echo "Tool: ${{ inputs.tool }}"
-        
+
         if [ -n "${{ inputs.html_path }}" ] && [ -f "${{ inputs.html_path }}" ]; then
-          echo "Using HTML file"
-          ENCODED=$(base64 -w0 < "${{ inputs.html_path }}")
-          LINK="https://traffictorch.net/${{ inputs.tool }}/?html=${ENCODED}"
+          echo "HTML file detected: ${{ inputs.html_path }}"
+          echo "Copy the content below and paste it into the HTML input box on Traffic Torch:"
+          echo "--------------------------------------------------"
+          cat "${{ inputs.html_path }}"
+          echo "--------------------------------------------------"
+          LINK="https://traffictorch.net/${{ inputs.tool }}/"
         else
-          echo "Using URL"
-          ENCODED=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
-          LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED}"
+          echo "Using URL: ${{ inputs.url }}"
+          LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${{ inputs.url }}"
         fi
 
-        echo "🔗 Full audit link:"
+        echo "🔗 Open Traffic Torch here:"
         echo "$LINK"
 
         echo "## Traffic Torch Audit" >> $GITHUB_STEP_SUMMARY
         echo "**Tool:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
         echo "**Link:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
+        if [ -n "${{ inputs.html_path }}" ] && [ -f "${{ inputs.html_path }}" ]; then
+          echo "**Action:** Copy the HTML content from the logs and paste it into the HTML input box on the site." >> $GITHUB_STEP_SUMMARY
+        fi
