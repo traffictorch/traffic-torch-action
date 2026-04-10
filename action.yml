@@ -1,5 +1,5 @@
 name: 'Traffic Torch Audit'
-description: 'Instant 360° SEO + UX + Design + AEO + GEO audit. Opens full Traffic Torch experience in browser.'
+description: 'Opens full Traffic Torch experience in browser with pre-filled HTML or URL'
 inputs:
   url:
     description: 'Live URL to audit'
@@ -14,7 +14,7 @@ inputs:
     required: false
     default: 'ai-audit-tool'
   open_in_browser:
-    description: 'Open in browser'
+    description: 'Open full page in browser'
     required: false
     default: 'true'
 runs:
@@ -25,16 +25,21 @@ runs:
       run: |
         echo "🚀 Traffic Torch Audit started"
         echo "Tool: ${{ inputs.tool }}"
-        echo "HTML path: ${{ inputs.html_path }}"
-
+        
         if [ -n "${{ inputs.html_path }}" ] && [ -f "${{ inputs.html_path }}" ]; then
-          echo "Using HTML file"
-          ENCODED_HTML=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.stdin.read()))" < "${{ inputs.html_path }}")
-          LINK="https://traffictorch.net/${{ inputs.tool }}/?html=${ENCODED_HTML}"
+          echo "Using HTML file: ${{ inputs.html_path }}"
+          ENCODED=$(python3 -c "
+import sys, urllib.parse
+print(urllib.parse.quote(sys.stdin.read()))
+" < "${{ inputs.html_path }}")
+          LINK="https://traffictorch.net/${{ inputs.tool }}/?html=${ENCODED}"
         else
-          echo "Using URL mode"
-          ENCODED_URL=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.stdin.read()))" <<< "${{ inputs.url }}")
-          LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED_URL}"
+          echo "Using URL: ${{ inputs.url }}"
+          ENCODED=$(python3 -c "
+import sys, urllib.parse
+print(urllib.parse.quote(sys.stdin.read()))
+" <<< "${{ inputs.url }}")
+          LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED}"
         fi
 
         echo "🔗 Full audit link:"
