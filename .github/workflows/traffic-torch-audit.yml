@@ -1,4 +1,4 @@
-name: Traffic Torch Audit (URL only)
+name: 🚥 Traffic Torch SEO + UX + GEO Audit
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
         description: 'Which Traffic Torch tool to run'
         type: choice
         required: true
-        default: 'topical-authority-audit-tool'
+        default: 'ai-audit-tool'
         options:
           - ⚜️ Topical Authority Audit
           - 🧬 SEO Entity Extractor

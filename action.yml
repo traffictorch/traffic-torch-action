@@ -15,11 +15,11 @@ runs:
     - name: Run Traffic Torch Audit
       shell: bash
       run: |
-        echo "🚥 Traffic Torch Audit started for ${{ inputs.url }}"
+        echo "🚀 Traffic Torch Audit started for ${{ inputs.url }}"
         echo "Tool: ${{ inputs.tool }}"
         
-        ENCODED_URL=$$   (echo -n "   $${{ inputs.url }}" | jq -sRr @uri)
-        LINK="https://traffictorch.net/$$   {{ inputs.tool }}/?url=   $${ENCODED_URL}"
+        ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
+        LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED_URL}"
         
         echo "🔗 Click this link to run the full audit:"
         echo "$LINK"
