@@ -1,10 +1,10 @@
-name: 🚥 Traffic Torch SEO GEO UX Audit Toolkit
+name: 🚥 Traffic Torch SEO GEO UX Health Analysis Audit Toolkit
 
 on:
   workflow_dispatch:
     inputs:
       url:
-        description: 'URL to audit'
+        description: 'URL to audit (your live site, staging, or preview deploy)'
         required: true
         default: 'traffictorch.net'
       tool:
