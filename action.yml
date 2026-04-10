@@ -1,12 +1,12 @@
 name: 'Traffic Torch Audit'
-description: 'Simple URL audit - opens full Traffic Torch page'
+description: 'Simple URL audit - opens full Traffic Torch page with pre-filled URL'
 inputs:
   url:
     description: 'URL to audit'
     required: true
     default: 'https://traffictorch.net'
   tool:
-    description: 'Tool to run'
+    description: 'Which Traffic Torch tool to run'
     required: false
     default: 'ai-audit-tool'
 runs:
@@ -15,12 +15,15 @@ runs:
     - name: Run Traffic Torch Audit
       shell: bash
       run: |
-        echo "🚀 Traffic Torch Audit started for ${{ inputs.url }}"
+        echo "🚥 Traffic Torch Audit started for ${{ inputs.url }}"
         echo "Tool: ${{ inputs.tool }}"
-        ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
-        LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED_URL}"
+        
+        ENCODED_URL=$$   (echo -n "   $${{ inputs.url }}" | jq -sRr @uri)
+        LINK="https://traffictorch.net/$$   {{ inputs.tool }}/?url=   $${ENCODED_URL}"
+        
         echo "🔗 Click this link to run the full audit:"
         echo "$LINK"
+        
         echo "## Traffic Torch Audit" >> $GITHUB_STEP_SUMMARY
         echo "**URL:** ${{ inputs.url }}" >> $GITHUB_STEP_SUMMARY
         echo "**Tool:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY

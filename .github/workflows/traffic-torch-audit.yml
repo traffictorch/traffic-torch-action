@@ -8,16 +8,25 @@ on:
         required: true
         default: 'https://traffictorch.net'
       tool:
-        description: 'Tool to run'
+        description: 'Which Traffic Torch tool to run'
         type: choice
         required: true
-        default: 'ai-audit-tool'
+        default: 'topical-authority-audit-tool'
         options:
-          - ai-audit-tool
-          - topical-authority-audit-tool
-          - seo-entity-extractor-tool
-          - seo-intent-tool
-          - local-seo-tool
+          - ⚜️ Topical Authority Audit
+          - 🧬 SEO Entity Extractor
+          - 🎯 SEO Intent Tool
+          - 📍 Local SEO Tool
+          - 🛒 Product SEO Tool
+          - ⚙️ Schema Generator
+          - 🔎 AI Search Optimization
+          - 🎙️ AI Voice Search Tool
+          - 🤖 AI Audit Tool
+          - ⛔ Quit Risk Tool
+          - ⚖️ SEO UX Tool
+          - 🔑 Keyword Research Tool
+          - 🗝️ Keyword Tool
+          - 🆚 Keyword vs Tool
 
 jobs:
   audit:
