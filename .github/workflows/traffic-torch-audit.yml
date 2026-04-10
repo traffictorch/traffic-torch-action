@@ -6,12 +6,12 @@ on:
       url:
         description: 'URL to audit'
         required: true
-        default: 'https://traffictorch.net'
+        default: 'traffictorch.net'
       tool:
         description: 'Which Traffic Torch tool to run'
         type: choice
         required: true
-        default: 'ai-audit-tool'
+        default: 'topical-authority-audit-tool'
         options:
           - ⚜️ Topical Authority Audit
           - 🧬 SEO Entity Extractor
