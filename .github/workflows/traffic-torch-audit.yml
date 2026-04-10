@@ -6,7 +6,7 @@ on:
       url:
         description: 'URL to audit'
         required: true
-        default: 'traffictorch.net'
+        default: 'https://traffictorch.net'
       tool:
         description: 'Which Traffic Torch tool to run'
         type: choice
