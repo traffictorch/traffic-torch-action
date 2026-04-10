@@ -17,8 +17,27 @@ runs:
       run: |
         echo "🚀 Traffic Torch SEO + GEO + UX Health Analysis started for ${{ inputs.url }}"
         
+        # Map display name to real tool path
+        case "${{ inputs.tool }}" in
+          "⚜️ Topical Authority Audit") TOOL_PATH="topical-authority-audit-tool" ;;
+          "🧬 SEO Entity Extractor") TOOL_PATH="seo-entity-extractor-tool" ;;
+          "🎯 SEO Intent Tool") TOOL_PATH="seo-intent-tool" ;;
+          "📍 Local SEO Tool") TOOL_PATH="local-seo-tool" ;;
+          "🛒 Product SEO Tool") TOOL_PATH="product-seo-tool" ;;
+          "⚙️ Schema Generator") TOOL_PATH="schema-generator" ;;
+          "🔎 AI Search Optimization") TOOL_PATH="ai-search-optimization-tool" ;;
+          "🎙️ AI Voice Search Tool") TOOL_PATH="ai-voice-search-tool" ;;
+          "🤖 AI Audit Tool") TOOL_PATH="ai-audit-tool" ;;
+          "⛔ Quit Risk Tool") TOOL_PATH="quit-risk-tool" ;;
+          "⚖️ SEO UX Tool") TOOL_PATH="" ;;
+          "🔑 Keyword Research Tool") TOOL_PATH="keyword-research-tool" ;;
+          "🗝️ Keyword Tool") TOOL_PATH="keyword-tool" ;;
+          "🆚 Keyword vs Tool") TOOL_PATH="keyword-vs-tool" ;;
+          *) TOOL_PATH="ai-audit-tool" ;;
+        esac
+        
         ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
-        LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED_URL}"
+        LINK="https://traffictorch.net/${TOOL_PATH}/?url=${ENCODED_URL}"
         
         echo "🔗 Click this link to open the full audit:"
         echo "$LINK"
