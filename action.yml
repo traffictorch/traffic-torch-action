@@ -1,5 +1,5 @@
 name: 'Traffic Torch Audit'
-description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit. One-click URL audit with full interactive mobile first experience, day/night mode, priority fixes & educational reports.'
+description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit. One-click URL audit with full interactive mobile-first experience, day/night mode, priority fixes & educational reports.'
 inputs:
   url:
     description: 'URL to audit'
@@ -15,9 +15,9 @@ runs:
     - name: Run Traffic Torch Audit
       shell: bash
       run: |
-        echo "🚀 Traffic Torch SEO + GEO + UX Health Analysis started for ${{ inputs.url }}"
+        echo "🚥 Traffic Torch SEO + GEO + UX Health Analysis started for ${{ inputs.url }}"
         
-        # Map display name to real tool path
+        # Map emoji name to real tool path
         case "${{ inputs.tool }}" in
           "⚜️ Topical Authority Audit") TOOL_PATH="topical-authority-audit-tool" ;;
           "🧬 SEO Entity Extractor") TOOL_PATH="seo-entity-extractor-tool" ;;
@@ -43,6 +43,8 @@ runs:
         echo "$LINK"
         
         echo "## 🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit" >> $GITHUB_STEP_SUMMARY
-        echo "**URL:** ${{ inputs.url }}" >> $GITHUB_STEP_SUMMARY
-        echo "**Tool:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
-        echo "**Full Report Link:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
+        echo "**URL audited:** ${{ inputs.url }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Tool used:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Full Interactive Report:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "💡 Tip: Open the link in a new tab for the best experience." >> $GITHUB_STEP_SUMMARY
