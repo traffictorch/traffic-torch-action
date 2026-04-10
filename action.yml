@@ -2,7 +2,7 @@ name: 'Traffic Torch Audit'
 description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit. One-click URL audit with full interactive mobile first experience, day/night mode, priority fixes & educational reports).'
 inputs:
   url:
-    description: 'URL to audit (your site, staging, or preview)'
+    description: 'URL to audit'
     required: true
     default: 'traffictorch.net'
   tool:
@@ -17,26 +17,18 @@ runs:
       run: |
         echo "🚥 Traffic Torch SEO + GEO + UX Health Analysis started for ${{ inputs.url }}"
         
-        TOOL="${{ inputs.tool }}"
-        if [ "$TOOL" = "⚖️ SEO UX Tool" ]; then
+        TOOL_PATH="${{ inputs.tool }}"
+        if [ "$TOOL_PATH" = "⚖️ SEO UX Tool" ]; then
           TOOL_PATH=""
-        elif [ "$TOOL" = "🤖 AI Audit Tool" ]; then
-          TOOL_PATH="ai-audit-tool"
-        elif [ "$TOOL" = "🎙️ AI Voice Search Tool" ]; then
-          TOOL_PATH="ai-voice-search-tool"
-        elif [ "$TOOL" = "⚜️ Topical Authority Audit" ]; then
-          TOOL_PATH="topical-authority-audit-tool"
-        else
-          TOOL_PATH="ai-audit-tool"
         fi
         
-        ENCODED_URL=$$   (echo -n "   $${{ inputs.url }}" | jq -sRr @uri)
-        LINK="https://traffictorch.net/$$   {TOOL_PATH}/?url=   $${ENCODED_URL}"
+        ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
+        LINK="https://traffictorch.net/${TOOL_PATH}/?url=${ENCODED_URL}"
         
-        echo "🔗 Click this link to open the full interactive audit:"
+        echo "🔗 Click this link to open the full audit:"
         echo "$LINK"
         
         echo "## 🚥 Traffic Torch SEO + GEO + UX Health Analysis" >> $GITHUB_STEP_SUMMARY
-        echo "**URL audited:** ${{ inputs.url }}" >> $GITHUB_STEP_SUMMARY
+        echo "**URL:** ${{ inputs.url }}" >> $GITHUB_STEP_SUMMARY
         echo "**Tool:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
         echo "**Full Report Link:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
