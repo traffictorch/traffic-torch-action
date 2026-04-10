@@ -27,18 +27,12 @@ runs:
         echo "Tool: ${{ inputs.tool }}"
         
         if [ -n "${{ inputs.html_path }}" ] && [ -f "${{ inputs.html_path }}" ]; then
-          echo "Using HTML file: ${{ inputs.html_path }}"
-          ENCODED=$(python3 -c "
-import sys, urllib.parse
-print(urllib.parse.quote(sys.stdin.read()))
-" < "${{ inputs.html_path }}")
+          echo "Using HTML file"
+          ENCODED=$(base64 -w0 < "${{ inputs.html_path }}")
           LINK="https://traffictorch.net/${{ inputs.tool }}/?html=${ENCODED}"
         else
-          echo "Using URL: ${{ inputs.url }}"
-          ENCODED=$(python3 -c "
-import sys, urllib.parse
-print(urllib.parse.quote(sys.stdin.read()))
-" <<< "${{ inputs.url }}")
+          echo "Using URL"
+          ENCODED=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
           LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED}"
         fi
 
