@@ -58,9 +58,10 @@ jobs:
 
 ### Screenshots
 
-<img src="assets/screenshot-1.png" alt="Full Interactive Report">
-<img src="assets/screenshot-2.png" alt="Job Summary">
-<img src="assets/screenshot-3.png" alt="Dark Mode Support">
+<img src="assets/screenshot-1.png" alt="Traffic Torch Action Tool List in GitHub">
+<img src="assets/screenshot-2.png" alt="Full Interactive Report">
+<img src="assets/screenshot-3.png" alt="Job Summary">
+<img src="assets/screenshot-4.png" alt="Dark Mode Support">
 
 ### Installation for Any Repo
 

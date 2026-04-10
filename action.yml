@@ -1,5 +1,5 @@
 name: 'Traffic Torch Audit'
-description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit. One-click URL audit with full interactive mobile-first experience, day/night mode, priority fixes & educational reports.'
+description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit with full interactive experience, fixes & educational reports.'
 inputs:
   url:
     description: 'URL to audit'
