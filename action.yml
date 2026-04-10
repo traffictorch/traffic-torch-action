@@ -1,16 +1,16 @@
 name: 'Traffic Torch Audit'
-description: 'Opens full Traffic Torch experience in browser'
+description: 'Instant 360° SEO + UX + Design + AEO + GEO audit. Opens full Traffic Torch experience in browser.'
 inputs:
   url:
-    description: 'Live URL'
+    description: 'Live URL to audit'
     required: false
     default: 'https://traffictorch.net'
   html_path:
-    description: 'HTML file path'
+    description: 'Path to HTML file'
     required: false
     default: 'test-pages/test-page.html'
   tool:
-    description: 'Tool'
+    description: 'Tool to run'
     required: false
     default: 'ai-audit-tool'
   open_in_browser:
@@ -29,11 +29,11 @@ runs:
 
         if [ -n "${{ inputs.html_path }}" ] && [ -f "${{ inputs.html_path }}" ]; then
           echo "Using HTML file"
-          ENCODED_HTML=$(base64 -w0 < "${{ inputs.html_path }}")
+          ENCODED_HTML=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.stdin.read()))" < "${{ inputs.html_path }}")
           LINK="https://traffictorch.net/${{ inputs.tool }}/?html=${ENCODED_HTML}"
         else
           echo "Using URL mode"
-          ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
+          ENCODED_URL=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.stdin.read()))" <<< "${{ inputs.url }}")
           LINK="https://traffictorch.net/${{ inputs.tool }}/?url=${ENCODED_URL}"
         fi
 
