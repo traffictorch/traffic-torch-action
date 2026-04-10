@@ -17,13 +17,26 @@ runs:
       run: |
         echo "🚥 Traffic Torch SEO + GEO + UX Health Analysis started for ${{ inputs.url }}"
         
-        TOOL_PATH="${{ inputs.tool }}"
-        if [ "$TOOL_PATH" = "⚖️ SEO UX Tool" ]; then
-          TOOL_PATH=""
+        TOOL="${{ inputs.tool }}"
+        if [[ "$TOOL" == *"Topical Authority"* ]]; then TOOL_PATH="topical-authority-audit-tool"
+        elif [[ "$TOOL" == *"SEO Entity Extractor"* ]]; then TOOL_PATH="seo-entity-extractor-tool"
+        elif [[ "$TOOL" == *"SEO Intent Tool"* ]]; then TOOL_PATH="seo-intent-tool"
+        elif [[ "$TOOL" == *"Local SEO Tool"* ]]; then TOOL_PATH="local-seo-tool"
+        elif [[ "$TOOL" == *"Product SEO Tool"* ]]; then TOOL_PATH="product-seo-tool"
+        elif [[ "$TOOL" == *"Schema Generator"* ]]; then TOOL_PATH="schema-generator"
+        elif [[ "$TOOL" == *"AI Search Optimization"* ]]; then TOOL_PATH="ai-search-optimization-tool"
+        elif [[ "$TOOL" == *"AI Voice Search Tool"* ]]; then TOOL_PATH="ai-voice-search-tool"
+        elif [[ "$TOOL" == *"AI Audit Tool"* ]]; then TOOL_PATH="ai-audit-tool"
+        elif [[ "$TOOL" == *"Quit Risk Tool"* ]]; then TOOL_PATH="quit-risk-tool"
+        elif [[ "$TOOL" == *"SEO UX Tool"* ]]; then TOOL_PATH=""
+        elif [[ "$TOOL" == *"Keyword Research Tool"* ]]; then TOOL_PATH="keyword-research-tool"
+        elif [[ "$TOOL" == *"Keyword Tool"* ]]; then TOOL_PATH="keyword-tool"
+        elif [[ "$TOOL" == *"Keyword vs Tool"* ]]; then TOOL_PATH="keyword-vs-tool"
+        else TOOL_PATH="ai-audit-tool"
         fi
         
-        ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
-        LINK="https://traffictorch.net/${TOOL_PATH}/?url=${ENCODED_URL}"
+        ENCODED_URL=$$   (echo -n "   $${{ inputs.url }}" | jq -sRr @uri)
+        LINK="https://traffictorch.net/$$   {TOOL_PATH}/?url=   $${ENCODED_URL}"
         
         echo "🔗 Click this link to open the full audit:"
         echo "$LINK"

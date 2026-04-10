@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: 'URL to audit (your live site, staging, or preview deploy)'
+        description: 'URL to audit'
         required: true
         default: 'traffictorch.net'
       tool:
