@@ -1,5 +1,8 @@
 name: 'Traffic Torch Audit'
 description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit with full interactive experience, fixes & educational reports.'
+branding:
+  icon: 'bar-chart'
+  color: 'orange'
 inputs:
   url:
     description: 'URL to audit'
