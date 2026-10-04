@@ -1,5 +1,5 @@
 name: 'Traffic Torch Audit'
-description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit with full interactive experience, CMS-specific fixes & educational reports.'
+description: 'Traffic Torch SEO + UX + AEO Audit Toolkit. One-click audits with CMS fixes & Ask AI.'
 branding:
   icon: 'bar-chart'
   color: 'orange'
@@ -18,7 +18,7 @@ runs:
     - name: Run Traffic Torch Audit
       shell: bash
       run: |
-        echo "🚥 Traffic Torch SEO + GEO + UX Health Analysis started for ${{ inputs.url }}"
+        echo "Traffic Torch SEO + UX + AEO Audit started for ${{ inputs.url }}"
         
         # Map emoji name to real tool path
         case "${{ inputs.tool }}" in
@@ -53,7 +53,7 @@ runs:
         echo "🔗 Click this link to open the full audit:"
         echo "$LINK"
         
-        echo "## 🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit" >> $GITHUB_STEP_SUMMARY
+        echo "## Traffic Torch SEO + UX + AEO Audit Toolkit" >> $GITHUB_STEP_SUMMARY
         echo "**URL audited:** ${{ inputs.url }}" >> $GITHUB_STEP_SUMMARY
         echo "**Tool used:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
         echo "**Full Interactive Report:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
