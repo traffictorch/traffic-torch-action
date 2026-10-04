@@ -1,5 +1,5 @@
 name: 'Traffic Torch Audit'
-description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit with full interactive experience, fixes & educational reports.'
+description: '🚥 Traffic Torch SEO + GEO + UX Health Analysis Audit Toolkit with full interactive experience, CMS-specific fixes & educational reports.'
 branding:
   icon: 'bar-chart'
   color: 'orange'
@@ -11,7 +11,7 @@ inputs:
   tool:
     description: 'Which Traffic Torch tool to run'
     required: false
-    default: 'topical-authority-audit-tool'
+    default: 'nusa-tool'
 runs:
   using: 'composite'
   steps:
@@ -22,6 +22,10 @@ runs:
         
         # Map emoji name to real tool path
         case "${{ inputs.tool }}" in
+          "📈 NUSA Tool") TOOL_PATH="" ;;
+          "🗼 Lighthouse Plus") TOOL_PATH="lighthouse-plus-tool" ;;
+          "🚀 AEO Performance") TOOL_PATH="aeo-performance-tool" ;;
+          "⚖️ SEO + UX") TOOL_PATH="seo-ux-tool" ;;
           "⚜️ Topical Authority Audit") TOOL_PATH="topical-authority-audit-tool" ;;
           "🧬 SEO Entity Extractor") TOOL_PATH="seo-entity-extractor-tool" ;;
           "🎯 SEO Intent Tool") TOOL_PATH="seo-intent-tool" ;;
@@ -32,15 +36,19 @@ runs:
           "🎙️ AI Voice Search Tool") TOOL_PATH="ai-voice-search-tool" ;;
           "🤖 AI Audit Tool") TOOL_PATH="ai-audit-tool" ;;
           "⛔ Quit Risk Tool") TOOL_PATH="quit-risk-tool" ;;
-          "⚖️ SEO UX Tool") TOOL_PATH="" ;;
           "🔑 Keyword Research Tool") TOOL_PATH="keyword-research-tool" ;;
           "🗝️ Keyword Tool") TOOL_PATH="keyword-tool" ;;
           "🆚 Keyword vs Tool") TOOL_PATH="keyword-vs-tool" ;;
-          *) TOOL_PATH="ai-audit-tool" ;;
+          *) TOOL_PATH="nusa-tool" ;;
         esac
         
         ENCODED_URL=$(echo -n "${{ inputs.url }}" | jq -sRr @uri)
-        LINK="https://traffictorch.net/${TOOL_PATH}/?url=${ENCODED_URL}"
+        
+        if [ -z "$TOOL_PATH" ]; then
+          LINK="https://traffictorch.net/?url=${ENCODED_URL}"
+        else
+          LINK="https://traffictorch.net/${TOOL_PATH}/?url=${ENCODED_URL}"
+        fi
         
         echo "🔗 Click this link to open the full audit:"
         echo "$LINK"
@@ -50,4 +58,4 @@ runs:
         echo "**Tool used:** ${{ inputs.tool }}" >> $GITHUB_STEP_SUMMARY
         echo "**Full Interactive Report:** [$LINK]($LINK)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "💡 Tip: Open the link in a new tab for the best experience." >> $GITHUB_STEP_SUMMARY
+        echo "💡 Tip: Open the link in a new tab for the best experience (CMS-specific fixes + Ask AI available)." >> $GITHUB_STEP_SUMMARY
